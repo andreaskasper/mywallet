@@ -1,8 +1,5 @@
 package com.plabsi.mywallet;
 
-import android.app.FragmentTransaction;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,23 +12,24 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebView;
-import android.widget.LinearLayout;
-
-import drawable.CardsFragment;
-import drawable.MoneyFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         CardsFragment.OnFragmentInteractionListener,
-        MoneyFragment.OnFragmentInteractionListener {
+        CouponsFragment.OnFragmentInteractionListener,
+        CouponsBKFragment.OnFragmentInteractionListener,
+        CouponsCFFragment.OnFragmentInteractionListener,
+
+        MoneyFragment.OnFragmentInteractionListener,
+        NotfallFragment.OnFragmentInteractionListener,
+OptionenFragment.OnFragmentInteractionListener,
+TicketsFragment.OnFragmentInteractionListener{
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //return;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -54,32 +52,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         MoneyFragment myf = new MoneyFragment();
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add(R.id.FrameHolder, myf);
+        android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.FrameHolder, myf);
         transaction.commit();
-
-
-    }
-
-
-
-    public boolean url_action(WebView view, String url) {
-        if (url.startsWith("share:")) {
-            String shareBody = url.substring(6);
-            Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-            sharingIntent.setType("text/plain");
-            sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "MyWallet");
-            sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-            startActivity(Intent.createChooser(sharingIntent, "MyWallet teilen"));
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri){
-
-        //you can leave it empty
     }
 
     @Override
@@ -95,8 +70,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        /*getMenuInflater().inflate(R.menu.menu_activity_money, menu);*/
-        //TODO: Muss wieder rein, wenn das Fragment wieder geht...
+        getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
@@ -122,51 +96,76 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_money) {
-            MoneyFragment myf = new MoneyFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.add(R.id.FrameHolder, myf);
-            transaction.commit();
-
-            Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
-            //setSupportActionBar(mActionBarToolbar);
             getSupportActionBar().setTitle("Geldbeutel - MyWallet");
-
-        } else if (id == R.id.nav_cards) {
-            CardsFragment myf = new CardsFragment();
-            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-            transaction.add(R.id.FrameHolder, myf);
+            MoneyFragment myf = new MoneyFragment();
+            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.FrameHolder, myf);
             transaction.commit();
-
-            Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
-            //setSupportActionBar(mActionBarToolbar);
+        } else if (id == R.id.nav_cards) {
             getSupportActionBar().setTitle("Karten - MyWallet");
-
+            CardsFragment myf = new CardsFragment();
+            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.FrameHolder, myf);
+            transaction.commit();
         } else if (id == R.id.nav_eintrittskarten) {
-            android.webkit.WebView wv = (android.webkit.WebView) findViewById(R.id.WebView1);
-            wv.loadUrl("http://127.0.0.1:8082/mywallet/tickets.php?t="+Math.random());
+            getSupportActionBar().setTitle("Eintrittskarten - MyWallet");
+            TicketsFragment myf = new TicketsFragment();
+            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.FrameHolder, myf);
+            transaction.commit();
         } else if (id == R.id.nav_coupons) {
-            android.webkit.WebView wv = (android.webkit.WebView) findViewById(R.id.WebView1);
-            wv.loadUrl("http://127.0.0.1:8082/mywallet/coupons.php?t="+Math.random());
+            getSupportActionBar().setTitle("Coupons - MyWallet");
+            CouponsFragment myf = new CouponsFragment();
+            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.FrameHolder, myf);
+            transaction.commit();
         } else if (id == R.id.nav_coupons_bk) {
-            android.webkit.WebView wv = (android.webkit.WebView) findViewById(R.id.WebView1);
-            wv.loadUrl("http://127.0.0.1:8082/mywallet/coupons_burgerking.php?t="+Math.random());
+            getSupportActionBar().setTitle("Burger King - MyWallet");
+            CouponsBKFragment myf = new CouponsBKFragment();
+            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.FrameHolder, myf);
+            transaction.commit();
         } else if (id == R.id.nav_coupons_cf) {
-            android.webkit.WebView wv = (android.webkit.WebView) findViewById(R.id.WebView1);
-            wv.loadUrl("http://127.0.0.1:8082/mywallet/coupons_coffeefellows.php?t="+Math.random());
-
-
+            getSupportActionBar().setTitle("Coffee Fellows");
+            CouponsCFFragment myf = new CouponsCFFragment();
+            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.FrameHolder, myf);
+            transaction.commit();
         } else if (id == R.id.nav_emergency) {
-            android.webkit.WebView wv = (android.webkit.WebView) findViewById(R.id.WebView1);
-            wv.loadUrl("http://127.0.0.1:8082/mywallet/emergency.php?t="+Math.random());
+            getSupportActionBar().setTitle("Notfall - MyWallet");
+            NotfallFragment myf = new NotfallFragment();
+            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.FrameHolder, myf);
+            transaction.commit();
         } else if (id == R.id.nav_options) {
-            android.webkit.WebView wv = (android.webkit.WebView) findViewById(R.id.WebView1);
-            wv.loadUrl("http://127.0.0.1:8082/mywallet/options.php?t="+Math.random());
-
-
+            getSupportActionBar().setTitle("Optionen - MyWallet");
+            OptionenFragment myf = new OptionenFragment();
+            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.FrameHolder, myf);
+            transaction.commit();
         }
+        /*if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(android.net.Uri uri){
+
+        //you can leave it empty
     }
 }

@@ -1,25 +1,22 @@
-package drawable;
+package com.plabsi.mywallet;
 
 import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.plabsi.mywallet.R;
-
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link CardsFragment.OnFragmentInteractionListener} interface
+ * {@link CouponsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link CardsFragment#newInstance} factory method to
+ * Use the {@link CouponsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CardsFragment extends Fragment {
+public class CouponsFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +29,7 @@ public class CardsFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public CardsFragment() {
+    public CouponsFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +39,11 @@ public class CardsFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment BlankFragment.
+     * @return A new instance of fragment MoneyFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CardsFragment newInstance(String param1, String param2) {
-        CardsFragment fragment = new CardsFragment();
+    public static CouponsFragment newInstance(String param1, String param2) {
+        CouponsFragment fragment = new CouponsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,13 +65,7 @@ public class CardsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         _view = inflater.inflate(R.layout.fragment_browser, container, false);
-        return _view;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        android.webkit.WebView webView = (android.webkit.WebView) getView().findViewById(R.id.WebView2);
+        android.webkit.WebView webView = (android.webkit.WebView) _view.findViewById(R.id.WebView1);
         if (webView != null) {
             webView.getSettings().setJavaScriptEnabled(true);
             webView.setWebViewClient(new android.webkit.WebViewClient());
@@ -90,10 +81,10 @@ public class CardsFragment extends Fragment {
             webSettings.setDomStorageEnabled(true);
             webView.getSettings().setJavaScriptEnabled(true);
             webView.getSettings().setDomStorageEnabled(true);
-            webView.loadUrl("http://127.0.0.1:8082/mywallet/cards.php?t="+Math.random());
+            webView.loadUrl("http://127.0.0.1:8082/mywallet/coupons.php?t="+Math.random());
         } else 	android.util.Log.w("MoneyFragment","Kann WebView2 nicht finden...");
-
-        }
+        return _view;
+    }
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
