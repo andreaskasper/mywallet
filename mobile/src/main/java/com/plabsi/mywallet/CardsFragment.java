@@ -4,6 +4,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,6 +60,7 @@ public class CardsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -83,7 +86,25 @@ public class CardsFragment extends Fragment {
             webView.getSettings().setDomStorageEnabled(true);
             webView.loadUrl("http://127.0.0.1:8082/mywallet/cards.php?t="+Math.random());
         } else 	android.util.Log.w("MoneyFragment","Kann WebView2 nicht finden...");
+
+        FloatingActionButton fab = (FloatingActionButton) _view.findViewById(R.id.fab);
+        fab.setVisibility(View.VISIBLE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
         return _view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(android.view.Menu menu, android.view.MenuInflater inflater) {
+        // TODO Add your menu entries here
+        getActivity().getMenuInflater().inflate(R.menu.frag_cards, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
