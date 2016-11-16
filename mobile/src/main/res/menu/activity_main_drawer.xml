@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_money"
+            android:icon="@drawable/ic_menu_geldbeutel"
+            android:title="Geldbeutel" />
+        <!--<item android:title="Karten">
+        <menu>-->
+        <item
+            android:id="@+id/nav_cards"
+            android:icon="@drawable/ic_menu_creditcards"
+            android:title="Karten" />
+
+        <item
+            android:id="@+id/nav_eintrittskarten"
+            android:icon="@drawable/ic_menu_ticket"
+            android:title="Eintrittskarten" />
+
+        <!--            </menu>
+                </item>-->
+    </group>
+
+    <item android:title="Gutscheine">
+        <menu>
+            <item
+                android:id="@+id/nav_coupons"
+                android:icon="@drawable/ic_menu_coupon2"
+                android:title="Allgemein" />
+            <item
+                android:id="@+id/nav_coupons_bk"
+                android:icon="@drawable/ic_menu_burgerking"
+                android:title="Burger King" />
+            <item
+                android:id="@+id/nav_coupons_cf"
+                android:icon="@drawable/ic_menu_coffefellows"
+                android:title="Coffee Fellows" />
+        </menu>
+    </item>
+
+    <item android:title="Extras">
+        <menu>
+            <item
+                android:id="@+id/nav_emergency"
+                android:icon="@drawable/ic_menu_firstaid"
+                android:title="Notfall" />
+            <item
+                android:id="@+id/nav_options"
+                android:icon="@drawable/ic_menu_options"
+                android:title="Optionen" />
+        </menu>
+    </item>
+
+</menu>
