@@ -2,12 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="drawable.BlankFragment">
+    tools:context="drawable.MoneyFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+
+    <WebView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Dies ist ein Test" />
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/WebView2" />
+
 
 </FrameLayout>

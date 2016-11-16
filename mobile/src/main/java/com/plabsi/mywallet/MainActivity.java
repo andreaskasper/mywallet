@@ -1,6 +1,8 @@
 package com.plabsi.mywallet;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,9 +17,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
+import android.widget.LinearLayout;
+
+import drawable.CardsFragment;
+import drawable.MoneyFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        CardsFragment.OnFragmentInteractionListener,
+        MoneyFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,23 +53,15 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        android.webkit.WebView webView = (android.webkit.WebView) findViewById(R.id.WebView1);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.setWebViewClient(new android.webkit.WebViewClient());
-        /*webView.setWebViewClient(new android.webkit.WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
-                if (url_action(view, request.getUrl().toString()) == true) return true;
-                return super.shouldOverrideUrlLoading(view, request);
-            }
-        });*/
-        android.webkit.WebSettings webSettings = webView.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setDomStorageEnabled(true);
-        webView.getSettings().setJavaScriptEnabled(true);
-        webView.getSettings().setDomStorageEnabled(true);
-        webView.loadUrl("http://127.0.0.1:8082/mywallet/money.php");
+        MoneyFragment myf = new MoneyFragment();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.add(R.id.FrameHolder, myf);
+        transaction.commit();
+
+
     }
+
+
 
     public boolean url_action(WebView view, String url) {
         if (url.startsWith("share:")) {
@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri){
+
+        //you can leave it empty
     }
 
     @Override
@@ -116,14 +122,27 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_money) {
-            android.webkit.WebView wv = (android.webkit.WebView) findViewById(R.id.WebView1);
-            wv.loadUrl("http://127.0.0.1:8082/mywallet/money.php?t="+Math.random());
+            MoneyFragment myf = new MoneyFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.add(R.id.FrameHolder, myf);
+            transaction.commit();
+
+            Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+            //setSupportActionBar(mActionBarToolbar);
+            getSupportActionBar().setTitle("Geldbeutel - MyWallet");
+
         } else if (id == R.id.nav_cards) {
-            android.webkit.WebView wv = (android.webkit.WebView) findViewById(R.id.WebView1);
-            wv.loadUrl("http://127.0.0.1:8082/mywallet/cards.php?t="+Math.random());
+            CardsFragment myf = new CardsFragment();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.add(R.id.FrameHolder, myf);
+            transaction.commit();
+
+            Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+            //setSupportActionBar(mActionBarToolbar);
+            getSupportActionBar().setTitle("Karten - MyWallet");
+
         } else if (id == R.id.nav_eintrittskarten) {
             android.webkit.WebView wv = (android.webkit.WebView) findViewById(R.id.WebView1);
-
             wv.loadUrl("http://127.0.0.1:8082/mywallet/tickets.php?t="+Math.random());
         } else if (id == R.id.nav_coupons) {
             android.webkit.WebView wv = (android.webkit.WebView) findViewById(R.id.WebView1);
